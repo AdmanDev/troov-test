@@ -1,0 +1,25 @@
+{
+    "folders": [
+        {
+            "path": ".."
+        },
+        {
+            "path": "../troov-test-portal",
+            "name": "Portal"
+        },
+        {
+            "path": "../troov-test-api",
+            "name": "API"
+        }
+    ],
+    "settings": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "always"
+        },
+        "eslint.validate": [
+            "typescript",
+            "javascript"
+        ],
+        "editor.formatOnPaste": false
+    }
+}
