@@ -1,5 +1,6 @@
 <template>
   <div>
+    <PageHeader />
     <h1>Home</h1>
     <pre>{{ data }}</pre>
   </div>
