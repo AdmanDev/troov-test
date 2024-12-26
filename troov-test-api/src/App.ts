@@ -1,5 +1,6 @@
 import http from 'http'
 import express from 'express'
+import mongoose from 'mongoose'
 import { AppRoutes } from './routes/AppRoutes'
 
 type ErrorHandlerType = {
@@ -27,6 +28,9 @@ export class App {
       console.log(`🚀 Server running at http://localhost:${App.port}`)
     })
 
+    // Connect to the database
+    App.connectToDatabase()
+
     // Initialize routes
     app.use('/api', AppRoutes.use())
 
@@ -44,6 +48,21 @@ export class App {
     app.use(express.json())
 
     return app
+  }
+
+  /**
+   * Connect to the database.
+   */
+  private static async connectToDatabase() {
+    const dbUri = process.env.DB_URI as string
+
+    if (!dbUri) {
+      throw new Error('Database URI not found in environment variables.')
+    }
+
+    await mongoose.connect(dbUri)
+
+    console.log('📦 Database connected')
   }
 
   /**
