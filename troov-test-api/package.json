@@ -4,13 +4,14 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsc -p tsconfig.json && nodemon build/App.js"
+    "dev": "tsc -p tsconfig.json && env-cmd -f ./.env nodemon build/App.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@stylistic/eslint-plugin": "^2.12.1",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
+    "env-cmd": "^10.1.0",
     "eslint": "^9.17.0",
     "eslint-plugin-jsdoc": "^50.6.1",
     "nodemon": "^3.1.9",
@@ -19,6 +20,7 @@
     "typescript-eslint": "^8.18.2"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2"
   }
 }
