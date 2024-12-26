@@ -2,6 +2,7 @@ import http from 'http'
 import express from 'express'
 import mongoose from 'mongoose'
 import { AppRoutes } from './routes/AppRoutes'
+import { ErrorMiddleware } from './middlewares/ErrorMiddleware'
 
 type ErrorHandlerType = {
   syscall: string
@@ -31,8 +32,9 @@ export class App {
     // Connect to the database
     App.connectToDatabase()
 
-    // Initialize routes
+    // Initialize routes and middlewares
     app.use('/api', AppRoutes.use())
+    app.use(ErrorMiddleware.handleErrors)
 
     // Start server
     App.port = parseInt(process.env.PORT as string, 10) || 3001
