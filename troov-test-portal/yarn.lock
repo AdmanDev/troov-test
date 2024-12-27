@@ -1073,7 +1073,7 @@
     pathe "^1.1.2"
     unimport "^3.14.5"
 
-"@nuxt/kit@3.15.0", "@nuxt/kit@^3.14.1592":
+"@nuxt/kit@3.15.0", "@nuxt/kit@^3.12.4", "@nuxt/kit@^3.14.1592":
   version "3.15.0"
   resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.15.0.tgz#da52b8acb9e77cd3e6f246a484c4b5743ac0ca6a"
   integrity sha512-Q7k11wDTLIbBgoTfRYNrciK7PvjKklewrKd5PRMJCpn9Lmuqkq59HErNfJXFrBKHsE3Ld0DB6WUtpPGOvWJZoQ==
@@ -4484,6 +4484,15 @@ nuxi@^3.17.2:
   resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.17.2.tgz#72cad260a8c332cae053b9ca588328138efcfa73"
   integrity sha512-JDVtBBwEe9VjVkhxwR/crtGJnyLHzvl2F1pjtglekjTVeiMThfhQHcvsI/u007gBAfPpmaCIdRGnoeTF4VKS8w==
 
+nuxt-snackbar@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/nuxt-snackbar/-/nuxt-snackbar-1.1.2.tgz#ca6ae5659df76a86c98d067939dcb1bfb38aeabd"
+  integrity sha512-djRfKEMA08mssoeU2r+FFpFzxovvm2WrJOMzUYXt4K3kuD1GJuzJZZ20g0MPhkKeg8+5Dd0vGKYJhoF8xBBQaw==
+  dependencies:
+    "@nuxt/kit" "^3.12.4"
+    defu "^6.1.4"
+    vue3-snackbar "^2.3.2"
+
 nuxt@^3.15.0:
   version "3.15.0"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-3.15.0.tgz#a2ca73369900e89d57ac122a6a43d3c31ef8d404"
@@ -5807,6 +5816,11 @@ text-decoder@^1.1.0:
   dependencies:
     b4a "^1.6.4"
 
+tiny-emitter@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
+  integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
+
 tiny-invariant@^1.1.0:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.3.tgz#46680b7a873a0d5d10005995eb90a70d74d60127"
@@ -6284,6 +6298,19 @@ vue-tsc@^2.2.0:
   dependencies:
     "@volar/typescript" "~2.4.11"
     "@vue/language-core" "2.2.0"
+
+vue3-icon@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vue3-icon/-/vue3-icon-2.1.0.tgz#9b217204eaeed20e428ec7615fac5579b66d396f"
+  integrity sha512-cnFiGAEwzp/KQKody2Yj8cBDP4Kez0AUp5mDnp052FA1fECl8a9uYUKLaeRdH0JakmZ7Jfp3tdHbpBEWF9sgBA==
+
+vue3-snackbar@^2.3.2:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/vue3-snackbar/-/vue3-snackbar-2.3.4.tgz#e76e549b9b0e91cf6305547285a59e46623bfa8c"
+  integrity sha512-D4rMRQvl/baFUjM8vbvdoG5KoNqikWqTisx66ik1FnTk1CXhsH5+NPn+/4RzdZlamk8OQjLZzRtOJMciQTSv0Q==
+  dependencies:
+    tiny-emitter "^2.1.0"
+    vue3-icon "^2.1.0"
 
 vue@^3.5.13, vue@latest:
   version "3.5.13"
