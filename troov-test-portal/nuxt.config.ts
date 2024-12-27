@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', 'nuxt-snackbar'],
   devtools: { enabled: true },
   app: {
     head: {
@@ -39,5 +39,10 @@ export default defineNuxtConfig({
     config: {
       stylistic: true,
     },
+  },
+  snackbar: {
+    bottom: true,
+    right: true,
+    duration: 5000,
   },
 })
