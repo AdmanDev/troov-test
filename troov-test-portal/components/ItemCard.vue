@@ -46,21 +46,34 @@
       <button
         class="btn btn-sm btn-light ms-2"
         title="Supprimer"
+        @click="isDeleteConfirmVisible = true"
       >
         <i class="bi bi-trash" />
       </button>
     </div>
+
+    <ModalConfirmAction
+      v-if="isDeleteConfirmVisible"
+      :title="`Supprimer l'objet : ${item.name}`"
+      message="Êtes-vous sûr de vouloir supprimer cet objet ?"
+      @confirm="emit('delete', item)"
+      @close="isDeleteConfirmVisible = false"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { LostItem } from '~/models/LostItem'
 
-type Props = {
+const { item } = defineProps<{
   item: LostItem
-}
+}>()
 
-const { item } = defineProps<Props>()
+const emit = defineEmits<{
+  delete: [LostItem]
+}>()
+
+const isDeleteConfirmVisible = ref(false)
 
 const formatedDate = computed(() => {
   return new Date(item.date).toLocaleDateString()
