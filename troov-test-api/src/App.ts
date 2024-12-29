@@ -1,8 +1,10 @@
+import cookieParser from 'cookie-parser'
 import http from 'http'
 import express from 'express'
 import mongoose from 'mongoose'
 import { AppRoutes } from './routes/AppRoutes'
 import { ErrorMiddleware } from './middlewares/ErrorMiddleware'
+import { AuthMiddleware } from './middlewares/AuthMiddleware'
 
 type ErrorHandlerType = {
   syscall: string
@@ -33,7 +35,7 @@ export class App {
     App.connectToDatabase()
 
     // Initialize routes and middlewares
-    app.use('/api', AppRoutes.use())
+    app.use('/api', /* AuthMiddleware.use, */ AppRoutes.use())
     app.use(ErrorMiddleware.handleErrors)
 
     // Start server
@@ -47,7 +49,6 @@ export class App {
    */
   private static createExpressApp() {
     const app = express()
-    app.use(express.json())
 
     app.set('trust proxy', 1)
 
@@ -58,6 +59,9 @@ export class App {
       res.setHeader('Access-Control-Allow-Credentials', 'true')
       next()
     })
+
+    app.use(express.json())
+    app.use(cookieParser())
 
     return app
   }
