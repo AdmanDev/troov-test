@@ -8,7 +8,6 @@
       >
         <form
           class="needs-validation"
-          novalidate
           @submit.prevent="handleSubmit"
         >
           <div class="modal-dialog modal-lg">

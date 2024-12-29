@@ -24,6 +24,7 @@
         >
           <ItemCard
             :item="item"
+            @delete="deleteLostItem"
           />
         </div>
       </div>
@@ -66,5 +67,13 @@ const addLostItem = async (itemRequestData: LostItemRequestData) => {
   })
 
   lostItemList.value = [newItem, ...lostItemList.value || []]
+}
+
+const deleteLostItem = async (itemToDelete: LostItem) => {
+  await $apiFetch(`/lost-item/${itemToDelete._id}`, {
+    method: 'DELETE',
+  })
+
+  lostItemList.value = lostItemList.value?.filter(item => item._id !== itemToDelete._id) || []
 }
 </script>
