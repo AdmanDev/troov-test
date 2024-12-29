@@ -16,11 +16,6 @@ export class AuthMiddleware {
    */
   public static use(req: Request, res: Response, next: NextFunction) {
     try {
-      if (req.path.startsWith('/auth/')) {
-        next()
-        return
-      }
-
       const token = AuthMiddleware.getAuthTokenFromCookie(req)
       const claims = AuthMiddleware.getUserClaims(token)
 
