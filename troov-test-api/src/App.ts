@@ -4,7 +4,6 @@ import express from 'express'
 import mongoose from 'mongoose'
 import { AppRoutes } from './routes/AppRoutes'
 import { ErrorMiddleware } from './middlewares/ErrorMiddleware'
-import { AuthMiddleware } from './middlewares/AuthMiddleware'
 
 type ErrorHandlerType = {
   syscall: string
@@ -35,7 +34,7 @@ export class App {
     App.connectToDatabase()
 
     // Initialize routes and middlewares
-    app.use('/api', /* AuthMiddleware.use, */ AppRoutes.use())
+    app.use('/api', AppRoutes.use())
     app.use(ErrorMiddleware.handleErrors)
 
     // Start server

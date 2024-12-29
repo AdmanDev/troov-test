@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { UserRegisterationRequest } from '../types/requests/UserRegisterationRequest'
 import { AuthService } from '../services/AuthService'
 import { LoginRequest } from '../types/requests/LoginRequest'
+import { ApiError } from '../types/errors/ApiError'
 
 /**
  * Represents the controller for the user authentication
@@ -38,6 +39,25 @@ export class AuthController {
 
       const authToken = await AuthService.logInUser(email, psw)
       AuthController.setAuthCookie(res, authToken)
+
+      res.sendStatus(200)
+    }
+    catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+   * Logs in a user from a cookie
+   * @param req The request object
+   * @param res The response object
+   * @param next The next function
+   */
+  public static logInWithCookie(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.loggedUser) {
+        throw new ApiError('Veuillez vous connecter', 401)
+      }
 
       res.sendStatus(200)
     }
