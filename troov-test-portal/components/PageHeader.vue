@@ -9,12 +9,9 @@
         <span class="fw-bold">Troov</span>
       </NuxtLink>
 
-      <button
-        class="btn btn-primary"
-      >
-        <i class="bi bi-plus-lg me-2" />
-        Signaler un objet perdu
-      </button>
+      <div class="d-flex align-items-center">
+        <slot name="actions" />
+      </div>
     </div>
   </nav>
 </template>

@@ -12,7 +12,7 @@ export class LostItemService {
    */
   public static async getAll() {
     try {
-      return await LostItemModel.find()
+      return (await LostItemModel.find()).reverse()
     }
     catch {
       throw new ApiError('Impossible de récupérer la liste des objets perdus', 500)
