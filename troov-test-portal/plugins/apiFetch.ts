@@ -1,6 +1,7 @@
 import type { BaseResponse } from '~/types/requests/BaseResponse'
 
 export default defineNuxtPlugin(() => {
+  const headers = useRequestHeaders(['cookie'])
   const config = useRuntimeConfig()
   const snackbar = useSnackbar()
 
@@ -13,6 +14,11 @@ export default defineNuxtPlugin(() => {
 
   const $apiFetch = $fetch.create({
     baseURL: config.public.apiBaseUrl as string,
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      ...headers,
+    },
     parseResponse: parseResponse,
     onRequestError: () => {
       showSnackbarError('Une erreur est survenue')
@@ -37,11 +43,16 @@ export default defineNuxtPlugin(() => {
 })
 
 const parseResponse = (response: string) => {
-  const resp: BaseResponse<unknown> = JSON.parse(response)
+  try {
+    const resp: BaseResponse<unknown> = JSON.parse(response)
 
-  if (!resp || resp.isError) {
-    return resp
+    if (!resp || resp.isError) {
+      return resp
+    }
+
+    return resp.data
   }
-
-  return resp.data
+  catch {
+    return response
+  }
 }

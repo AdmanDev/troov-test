@@ -24,7 +24,7 @@ export class AuthService {
     const isUserAlreadyRegistered = await UserModel.exists({ email })
 
     if (isUserAlreadyRegistered) {
-      throw new ApiError('Cet utilisateur existe deja', 400)
+      throw new ApiError('Cet utilisateur existe déjà', 400)
     }
 
     const hashedPassword = this.hashPassword(psw)
