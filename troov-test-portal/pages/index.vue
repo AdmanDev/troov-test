@@ -4,18 +4,18 @@
 
     <div class="container my-4">
       <div
-        v-if="lostItemList"
+        v-if="itemStore.lostItemList"
         class="row g-4"
       >
         <div
-          v-for="item in lostItemList"
+          v-for="item in itemStore.lostItemList"
           :key="item._id"
           class="col-md-5 col-lg-4"
         >
           <ItemCard
             :item="item"
             @edit="openEditForm"
-            @delete="deleteLostItem"
+            @delete="itemStore.deleteLostItem"
           />
         </div>
       </div>
@@ -25,7 +25,7 @@
         class="text-center"
       >
         <div
-          v-if="error"
+          v-if="itemStore.lostItemsFetchError"
           class="alert alert-danger fs-5"
         >
           Une erreur est survenue lors du chargement des objets.
@@ -43,7 +43,7 @@
     <ModalItemForm
       :is-visible="isItemFormVisible"
       :item-to-edit="itemBeingEdited"
-      @submit="itemBeingEdited ? updateLostItem($event) : addLostItem($event)"
+      @submit="itemBeingEdited ? handleUpdateLostItem($event) : itemStore.addLostItem($event)"
       @close="isItemFormVisible = false"
     />
   </div>
@@ -53,12 +53,10 @@
 import type { LostItem } from '~/models/LostItem'
 import type { LostItemRequestData } from '~/types/requests/LostItemRequestData'
 
-const { $apiFetch } = useNuxtApp()
+const itemStore = useLostItemStore()
 
 const isItemFormVisible = ref(false)
 const itemBeingEdited = ref<LostItem | null>(null)
-
-const { data: lostItemList, error } = await useApiFetch<LostItem[]>('/lost-item')
 
 const openAddForm = () => {
   itemBeingEdited.value = null
@@ -70,32 +68,10 @@ const openEditForm = (item: LostItem) => {
   isItemFormVisible.value = true
 }
 
-const addLostItem = async (itemRequestData: LostItemRequestData) => {
-  const newItem = await $apiFetch<LostItem>('/lost-item', {
-    method: 'POST',
-    body: itemRequestData,
-  })
-
-  lostItemList.value = [newItem, ...lostItemList.value || []]
-}
-
-const updateLostItem = async (itemRequestData: LostItemRequestData) => {
+const handleUpdateLostItem = (item: LostItemRequestData) => {
   if (itemBeingEdited.value) {
-    const updatedItem = await $apiFetch<LostItem>(`/lost-item/${itemBeingEdited.value._id}`, {
-      method: 'PUT',
-      body: itemRequestData,
-    })
-
-    lostItemList.value = lostItemList.value?.map(item => item._id === updatedItem._id ? updatedItem : item) || []
+    itemStore.updateLostItem(item, itemBeingEdited.value._id)
   }
-}
-
-const deleteLostItem = async (itemToDelete: LostItem) => {
-  await $apiFetch(`/lost-item/${itemToDelete._id}`, {
-    method: 'DELETE',
-  })
-
-  lostItemList.value = lostItemList.value?.filter(item => item._id !== itemToDelete._id) || []
 }
 </script>
 
