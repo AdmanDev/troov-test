@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow-sm hover-shadow position-relative p-0">
+  <div class="card shadow-sm hover-shadow d-flex flex-column h-100">
     <div class="image-container">
       <img
         :src="item.imageUrl"
@@ -7,7 +7,7 @@
         :alt="item.name"
       >
     </div>
-    <div class="card-body">
+    <div class="card-body d-flex flex-column">
       <div class="d-flex justify-content-between align-items-start">
         <h5 class="card-title mb-1">
           {{ item.name }}
@@ -30,7 +30,7 @@
         <i class="bi bi-calendar me-1" />
         {{ formatedDate }}
       </p>
-      <p class="card-text">
+      <p class="card-text flex-grow-1">
         {{ item.description }}
       </p>
     </div>
@@ -108,9 +108,5 @@ const formatedDate = computed(() => {
 
 .card:hover .hover-actions {
   opacity: 1;
-}
-
-.card.flex-row {
-  height: 200px;
 }
 </style>
