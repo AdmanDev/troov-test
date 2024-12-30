@@ -4,7 +4,7 @@ Application web de recherche d'objets perdus
 
 ## Tester l'application
 
-Pour tester l'applicatio, vous pouvez :
+Pour tester l'application vous pouvez :
     - Accéder directement au site sur [troov.admandev.fr](https://troov.admandev.fr/)
     - Ou lancer le projet en local, en suivant les étapes ci-dessous
 
