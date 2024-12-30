@@ -10,8 +10,24 @@
       </NuxtLink>
 
       <div class="d-flex align-items-center">
-        <slot name="actions" />
+        <button
+          v-if="authStore.isConnected"
+          title="Se déconnecter"
+          class="btn btn-outline-secondary"
+          @click="handleLogout"
+        >
+          <i class="bi bi-box-arrow-right" />
+        </button>
       </div>
     </div>
   </nav>
 </template>
+
+<script setup lang="ts">
+const authStore = useAuthStore()
+
+const handleLogout = async () => {
+  await authStore.logout()
+  navigateTo('/auth')
+}
+</script>

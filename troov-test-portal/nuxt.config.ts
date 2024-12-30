@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', 'nuxt-snackbar'],
+  modules: ['@nuxt/eslint', 'nuxt-snackbar', '@pinia/nuxt'],
   devtools: { enabled: true },
   app: {
     head: {

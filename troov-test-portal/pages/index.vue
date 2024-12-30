@@ -1,16 +1,6 @@
 <template>
   <div>
-    <PageHeader>
-      <template #actions>
-        <button
-          class="btn btn-primary"
-          @click="isItemFormVisible = true"
-        >
-          <i class="bi bi-plus" />
-          Signaler un objet
-        </button>
-      </template>
-    </PageHeader>
+    <PageHeader />
 
     <div class="container my-4">
       <div
@@ -41,6 +31,13 @@
         </div>
       </div>
     </div>
+
+    <button
+      class="add-btn btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-4 shadow"
+      @click="isItemFormVisible = true"
+    >
+      +
+    </button>
 
     <ModalItemForm
       v-if="isItemFormVisible"
@@ -77,3 +74,11 @@ const deleteLostItem = async (itemToDelete: LostItem) => {
   lostItemList.value = lostItemList.value?.filter(item => item._id !== itemToDelete._id) || []
 }
 </script>
+
+<style scoped>
+.add-btn {
+  width: 56px;
+  height: 56px;
+  font-size: 25px;
+}
+</style>

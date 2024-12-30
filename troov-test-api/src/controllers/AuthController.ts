@@ -95,7 +95,9 @@ export class AuthController {
 
     res.cookie(authCookieName, authToken, {
       httpOnly: true,
+      secure: true,
       maxAge: cookieMaxAge,
+      sameSite: 'none',
     })
   }
 }
