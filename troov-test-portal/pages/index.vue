@@ -14,6 +14,7 @@
         >
           <ItemCard
             :item="item"
+            @edit="openEditForm"
             @delete="deleteLostItem"
           />
         </div>
@@ -34,14 +35,15 @@
 
     <button
       class="add-btn btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-4 shadow"
-      @click="isItemFormVisible = true"
+      @click="openAddForm"
     >
       +
     </button>
 
     <ModalItemForm
-      v-if="isItemFormVisible"
-      @submit="addLostItem"
+      :is-visible="isItemFormVisible"
+      :item-to-edit="itemBeingEdited"
+      @submit="itemBeingEdited ? updateLostItem($event) : addLostItem($event)"
       @close="isItemFormVisible = false"
     />
   </div>
@@ -54,16 +56,38 @@ import type { LostItemRequestData } from '~/types/requests/LostItemRequestData'
 const { $apiFetch } = useNuxtApp()
 
 const isItemFormVisible = ref(false)
+const itemBeingEdited = ref<LostItem | null>(null)
+
 const { data: lostItemList, error } = await useApiFetch<LostItem[]>('/lost-item')
 
+const openAddForm = () => {
+  itemBeingEdited.value = null
+  isItemFormVisible.value = true
+}
+
+const openEditForm = (item: LostItem) => {
+  itemBeingEdited.value = item
+  isItemFormVisible.value = true
+}
+
 const addLostItem = async (itemRequestData: LostItemRequestData) => {
-  isItemFormVisible.value = false
   const newItem = await $apiFetch<LostItem>('/lost-item', {
     method: 'POST',
     body: itemRequestData,
   })
 
   lostItemList.value = [newItem, ...lostItemList.value || []]
+}
+
+const updateLostItem = async (itemRequestData: LostItemRequestData) => {
+  if (itemBeingEdited.value) {
+    const updatedItem = await $apiFetch<LostItem>(`/lost-item/${itemBeingEdited.value._id}`, {
+      method: 'PUT',
+      body: itemRequestData,
+    })
+
+    lostItemList.value = lostItemList.value?.map(item => item._id === updatedItem._id ? updatedItem : item) || []
+  }
 }
 
 const deleteLostItem = async (itemToDelete: LostItem) => {
