@@ -136,6 +136,8 @@
 import type { LostItem } from '~/models/LostItem'
 import type { LostItemRequestData } from '~/types/requests/LostItemRequestData'
 
+const snackbar = useSnackbar()
+
 const props = defineProps<{
   isVisible: boolean
   itemToEdit: LostItem | null
@@ -170,10 +172,21 @@ watch(() => props.itemToEdit, (item) => {
 })
 
 const handleSubmit = () => {
-  if (formData.value) {
-    emit('submit', formData.value)
-    emit('close')
+  if (!formData.value) {
+    return
   }
+
+  if (!formData.value?.imageUrl) {
+    snackbar.add({
+      type: 'error',
+      text: 'Veuillez choisir une image',
+    })
+
+    return
+  }
+
+  emit('submit', formData.value)
+  emit('close')
 }
 </script>
 
