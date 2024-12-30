@@ -1,5 +1,5 @@
 <template>
-  <ClientOnly>
+  <ClientOnly v-if="isVisible">
     <Teleport to="body">
       <div
         class="modal fade show"
@@ -137,7 +137,8 @@ import type { LostItem } from '~/models/LostItem'
 import type { LostItemRequestData } from '~/types/requests/LostItemRequestData'
 
 const props = defineProps<{
-  item?: LostItem
+  isVisible: boolean
+  itemToEdit: LostItem | null
 }>()
 
 const emit = defineEmits<{
@@ -145,16 +146,16 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const isEditing = computed(() => !!props.item)
+const isEditing = computed(() => !!props.itemToEdit)
 
 const today = computed(() => new Date().toISOString().split('T')[0])
 
-const getInitialFormValue = (initialValue?: LostItem) => {
+const getInitialFormValue = (initialValue?: LostItem | null) => {
   const value: LostItemRequestData = {
     name: initialValue?.name || '',
     description: initialValue?.description || '',
     location: initialValue?.location || '',
-    date: initialValue?.date || '',
+    date: initialValue?.date ? new Date(initialValue.date).toISOString().split('T')[0] : '',
     status: initialValue?.status || 'LOST',
     imageUrl: initialValue?.imageUrl || '',
   }
@@ -164,13 +165,14 @@ const getInitialFormValue = (initialValue?: LostItem) => {
 
 const formData = ref<LostItemRequestData>(getInitialFormValue())
 
-watch(() => props.item, (item) => {
+watch(() => props.itemToEdit, (item) => {
   formData.value = getInitialFormValue(item)
 })
 
 const handleSubmit = () => {
-  if ((formData.value)) {
+  if (formData.value) {
     emit('submit', formData.value)
+    emit('close')
   }
 }
 </script>

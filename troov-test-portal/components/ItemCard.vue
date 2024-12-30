@@ -40,6 +40,7 @@
       <button
         class="btn btn-sm btn-light"
         title="Modifier"
+        @click="emit('edit', item)"
       >
         <i class="bi bi-pencil" />
       </button>
@@ -71,6 +72,7 @@ const { item } = defineProps<{
 
 const emit = defineEmits<{
   delete: [LostItem]
+  edit: [LostItem]
 }>()
 
 const isDeleteConfirmVisible = ref(false)
