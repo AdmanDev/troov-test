@@ -8,6 +8,15 @@
         class="row g-4"
       >
         <div
+          v-if="itemStore.lostItemList.length === 0"
+          class="text-center"
+        >
+          <div class="alert alert-info fs-5">
+            Il n'y a aucun objet perdu. Nous vivons dans le meilleur des mondes.
+          </div>
+        </div>
+
+        <div
           v-for="item in itemStore.lostItemList"
           :key="item._id"
           class="col-md-5 col-lg-4"
