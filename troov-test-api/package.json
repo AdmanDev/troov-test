@@ -4,13 +4,18 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsc -p tsconfig.json && nodemon build/App.js"
+    "dev": "tsc -p tsconfig.json && env-cmd -f ./.env nodemon build/App.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@stylistic/eslint-plugin": "^2.12.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.2",
+    "env-cmd": "^10.1.0",
     "eslint": "^9.17.0",
     "eslint-plugin-jsdoc": "^50.6.1",
     "nodemon": "^3.1.9",
@@ -19,6 +24,11 @@
     "typescript-eslint": "^8.18.2"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.2"
   }
 }

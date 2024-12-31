@@ -1,6 +1,10 @@
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import http from 'http'
 import express from 'express'
+import mongoose from 'mongoose'
 import { AppRoutes } from './routes/AppRoutes'
+import { ErrorMiddleware } from './middlewares/ErrorMiddleware'
 
 type ErrorHandlerType = {
   syscall: string
@@ -27,8 +31,12 @@ export class App {
       console.log(`🚀 Server running at http://localhost:${App.port}`)
     })
 
-    // Initialize routes
+    // Connect to the database
+    App.connectToDatabase()
+
+    // Initialize routes and middlewares
     app.use('/api', AppRoutes.use())
+    app.use(ErrorMiddleware.handleErrors)
 
     // Start server
     App.port = parseInt(process.env.PORT as string, 10) || 3001
@@ -41,9 +49,31 @@ export class App {
    */
   private static createExpressApp() {
     const app = express()
+
+    app.use(cors({
+      credentials: true,
+      origin: [process.env.WEBSITEURL as string],
+    }))
+
     app.use(express.json())
+    app.use(cookieParser())
 
     return app
+  }
+
+  /**
+   * Connect to the database.
+   */
+  private static async connectToDatabase() {
+    const dbUri = process.env.DB_URI as string
+
+    if (!dbUri) {
+      throw new Error('Database URI not found in environment variables.')
+    }
+
+    await mongoose.connect(dbUri)
+
+    console.log('📦 Database connected')
   }
 
   /**

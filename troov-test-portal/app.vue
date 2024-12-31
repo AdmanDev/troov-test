@@ -1,6 +1,13 @@
 <template>
-  <div>
+  <NuxtLayout>
     <NuxtRouteAnnouncer />
     <NuxtPage />
-  </div>
+    <NuxtSnackbar />
+  </NuxtLayout>
 </template>
+
+<style>
+body {
+  background-color: #F8F9FA;
+}
+</style>

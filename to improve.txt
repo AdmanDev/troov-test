@@ -1,0 +1,3 @@
+API :
+- Les données des requettes client devraient être vérifiées.
+- Un objet perdu devraient être relié à un user
